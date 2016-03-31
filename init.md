@@ -22,3 +22,41 @@ console.log(b);
 
 console.log(b);
 ```
+
+### Hoisting
+
+```js
+function test() {
+   console.log(a);
+   console.log(foo());
+   
+   var a = 1;
+   function foo() {
+      return 2;
+   }
+}
+
+test();
+```
+
+Каков результат выполнения данного кода?
+
+Пояснение: объявления переменной **a** и функции **foo** "всплывают" вверх тела функции **test**, но на момент вывода перменной **a** она будет неинициализирована. В консоль выведется **undefined** и **2**.
+
+Иными словами, данный код эквивалентен следующему:
+
+```js
+function test() {
+   var a;
+   function foo() {
+      return 2;
+   }
+
+   console.log(a);
+   console.log(foo());
+   
+   a = 1;
+}
+
+test();
+```
