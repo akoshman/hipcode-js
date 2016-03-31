@@ -60,3 +60,28 @@ function test() {
 
 test();
 ```
+
+### Как работает this
+
+Каков результат выполнения следующего кода?
+
+```js
+var fullname = 'John Doe';
+var obj = {
+   fullname: 'Colin Ihrig',
+   prop: {
+      fullname: 'Aurelio De Rosa',
+      getFullname: function() {
+         return this.fullname;
+      }
+   }
+};
+
+console.log(obj.prop.getFullname());
+
+var test = obj.prop.getFullname;
+
+console.log(test());
+```
+
+Пояснение: значение контекста функции, обозначаемого с помощью **this**, зависит от способа вызова функции, а не её объявления. В первом случае функция **getFullname** вызывается как метод объекта **obj.prop**, поэтому она вернёт значение свойства **fullname** этого объекта. Во втором случае, когда функция **getFullname** присваивается переменной **test**, контекст **this** указывает на глобальный объект (**window**). Это происходит потому, что **test** является свойством **window** и вызывается в его контексте. Следовательно, вернётся значение свойства **fullname** глобального объекта. В консоль выведется **Aurelio De Rosa** и **John Doe**.
